@@ -5,12 +5,7 @@ interface AtributesProps{
     title:string;
     item:string;
     ingrediente1:string;
-    ingrediente2:string;
-    ingrediente3?:string;
-    ingrediente4?:string;
-    ingrediente5?:string;
-    ingrediente6?:string;
-    ingrediente7?:string;
+    
 }
 
 export function Item(props:AtributesProps){
@@ -20,12 +15,7 @@ export function Item(props:AtributesProps){
                     <div>
                         <img src={props.image} alt={props.title} />
                         <h4>{props.item}</h4>
-                        <ul>
-                            <li>{props.ingrediente1}</li>                          
-                            <li>{props.ingrediente2}</li>                          
-                            <li>{props.ingrediente3}</li>                          
-                            <li>{props.ingrediente4}</li>                          
-                        </ul>
+                        <p>{props.ingrediente1}</p>                                                  
                     </div>
                 </div>
         </Container>
