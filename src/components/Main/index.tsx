@@ -1,57 +1,47 @@
 import { Container, Content } from "./style";
 import hambuger1 from "../../assets/hamburger/1.jpeg";
-import hambuger2 from "../../assets/hamburger/2.jpeg";
-import hambuger3 from "../../assets/hamburger/3.jpeg";
-import batata1 from "../../assets/batata/1.jpeg";
-import batata2 from "../../assets/batata/2.jpeg";
 import { Item } from "../Item";
+import axios from 'axios';
+import { useEffect, useState } from "react";
+
+interface Batatas{
+    nome:string;
+    ingredientes:string;
+    valor:string;
+    imagem:string;
+}
 
 export function Main(){
+    const [batata,setBatata] = useState<Batatas[]>([]);
+
+    useEffect(()=>{
+        getBatata();
+    },[batata])
+
+    let getBatata = async()=>{
+        let response = await axios.get("http://127.0.0.1:8000/api/listarbatatas");
+            setBatata(response.data)
+    };
+
     return(
         <Container>
             <Content>
                 <div className="title-item">
                     <h3>Hamburgers</h3>
                 </div>
-                <Item 
-                image={hambuger1} 
-                title={"hambuger1"}
-                item={"texas burger"}
-                ingrediente1={"pão"}
-                ingrediente2={"Hamburger"}
-                ingrediente3={"Bacon"}
-                ingrediente4={"Molho"}
-                 />
-                <Item 
-                image={hambuger2} 
-                title={"hambuger2"}
-                item={"texas burger"}
-                ingrediente1={"pão"}
-                ingrediente2={"Hamburger"}
-                ingrediente3={"Bacon"}
-                ingrediente4={"Molho"}
-                 />
-                <Item 
-                image={hambuger3} 
-                title={"hambuger3"}
-                item={"texas burger"}
-                ingrediente1={"pão"}
-                ingrediente2={"Hamburger"}
-                ingrediente3={"Bacon"}
-                ingrediente4={"Molho"}
-                 />
-                <Item 
-                image={hambuger1} 
-                title={"hambuger4"}
-                item={"texas burger"}
-                ingrediente1={"pão"}
-                ingrediente2={"Hamburger"}
-                ingrediente3={"Bacon"}
-                ingrediente4={"Molho"}
-                 />
-                
+               {batata.map(batatas =>{
+                   return ( <Item 
+                            key={batatas.nome}
+                            image={hambuger1} 
+                            title={"hambuger1"}
+                            item={batatas.nome}
+                            ingrediente1={batatas.ingredientes}
+                            />
+                        )
+               })}
+                          
                 <div>&nbsp;</div>
-                <div className="title-item">
+                {/* <div className="title-item">
                     <h3>Batata</h3>
                 </div>
                 <Item 
@@ -69,9 +59,10 @@ export function Main(){
                 ingrediente2={"Bacon"}
                  />
                 
-                <div>&nbsp;</div>
+                <div>&nbsp;</div> */}
                 
             </Content>
+            
         </Container>
     )
 };
